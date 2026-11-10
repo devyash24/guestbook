@@ -1,0 +1,15 @@
+# systemd unit: copy to /etc/systemd/system/guestbook.service on each EC2
+[Unit]
+Description=Guestbook Node.js app
+After=network.target remote-fs.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/guestbook
+EnvironmentFile=/etc/guestbook.env
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
